@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = "force-dynamic";
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
