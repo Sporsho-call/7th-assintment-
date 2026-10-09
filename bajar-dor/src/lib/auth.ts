@@ -1,18 +1,10 @@
 import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
+  baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  secret: process.env.BETTER_AUTH_SECRET || "bazardor_secret_key_123456789",
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: false, // নোটিফিকেশন/ভেরিফিকেশন ইমেইল অফ করা হয়েছে
-  },
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID || "placeholder",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "placeholder",
-    },
-    github: {
-      clientId: process.env.GITHUB_CLIENT_ID || "placeholder",
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || "placeholder",
-    },
+    requireEmailVerification: false,
   },
 });
