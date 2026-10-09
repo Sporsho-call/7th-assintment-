@@ -19,9 +19,13 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Hero Illustration / Basket */}
-      <div className="w-40 sm:w-52 h-40 sm:h-52 bg-amber-100/70 rounded-full flex items-center justify-center text-7xl shadow-inner">
-        🧺
+      {/* Hero Illustration Image directly from public folder */}
+      <div className="w-48 sm:w-60 h-auto flex items-center justify-center">
+        <img
+          src="/bazar-hero.png"
+          alt="বাজার দর বাসকেট"
+          className="w-full h-auto object-contain"
+        />
       </div>
     </div>
   );

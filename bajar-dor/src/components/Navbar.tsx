@@ -49,9 +49,12 @@ export default function Navbar() {
       {/* Top Navbar */}
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-            🛒
-          </div>
+          {/* Logo Image directly from public folder */}
+          <img
+            src="/logo-icon.png"
+            alt="বাজার দর লোগো"
+            className="w-8 h-8 object-contain"
+          />
           <div>
             <h1 className="text-base font-bold text-gray-900 leading-none">বাজার দর</h1>
             <span className="text-[11px] text-gray-400">মঙ্গলবার, ৬ অক্টোবর, ২০২৬</span>
