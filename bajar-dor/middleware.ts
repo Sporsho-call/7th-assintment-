@@ -4,18 +4,25 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // শুধু নির্দিষ্ট কিছু পেজ (যেমন প্রোফাইল বা আপডেট) প্রোটেক্টেড থাকবে
-  // বাকি সব পেজ (হোম, ক্যাটাগরি, প্রোডাক্ট ডিটেইলস) সবাই দেখতে পারবে
-  const isProtectedPath = pathname.startsWith("/profile");
+  // সাইন-ইন, সাইন-আপ এবং পাবলিক ফাইলগুলোতে যেতে বাধা দেওয়া যাবে না
+  if (
+    pathname.startsWith("/signin") ||
+    pathname.startsWith("/signup") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/_next") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
+  }
 
-  // BetterAuth-এর কুকিজ চেক করা
+  // বেটার-অথ (BetterAuth) সেশন কুকি চেক করা
   const sessionCookie = 
     request.cookies.get("better-auth.session_token") || 
     request.cookies.get("__Secure-better-auth.session_token");
 
-  if (isProtectedPath && !sessionCookie) {
+  // যদি লগইন করা না থাকে, সরাসরি /signin-এ পাঠিয়ে দেবো
+  if (!sessionCookie) {
     const signInUrl = new URL("/signin", request.url);
-    signInUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(signInUrl);
   }
 
@@ -23,5 +30,10 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*"],
+  matcher: [
+    /*
+     * নিচের পাথগুলো বাদ দিয়ে বাকি সব পেজে লগইন বাধ্যতামূলক করা হলো
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|signin|signup).*)",
+  ],
 };
